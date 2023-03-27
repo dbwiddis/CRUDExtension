@@ -18,7 +18,7 @@ public class CRUDExtension extends BaseExtension implements ActionExtension {
 
     @Override
     public List<ExtensionRestHandler> getExtensionRestHandlers() {
-        return List.of(new CrudAction());
+        return List.of(new CrudAction(extensionsRunner()));
     }
 
     public static void main(String[] args) throws IOException {
