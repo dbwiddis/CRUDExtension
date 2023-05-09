@@ -16,11 +16,11 @@ import org.opensearch.client.opensearch.indices.ExistsRequest;
 import org.opensearch.client.transport.endpoints.BooleanResponse;
 import org.opensearch.extensions.rest.ExtensionRestRequest;
 import org.opensearch.extensions.rest.ExtensionRestResponse;
+import org.opensearch.rest.RestRequest;
 import org.opensearch.rest.RestRequest.Method;
 import org.opensearch.rest.RestStatus;
-import org.opensearch.sdk.BaseExtensionRestHandler;
+import org.opensearch.sdk.rest.BaseExtensionRestHandler;
 import org.opensearch.sdk.ExtensionsRunner;
-import org.opensearch.sdk.RouteHandler;
 
 public class CrudAction extends BaseExtensionRestHandler {
 
@@ -40,7 +40,7 @@ public class CrudAction extends BaseExtensionRestHandler {
         );
     }
 
-    Function<ExtensionRestRequest, ExtensionRestResponse> createHandler = (request) -> {
+    Function<RestRequest, ExtensionRestResponse> createHandler = (request) -> {
         IndexResponse response;
         try {
             BooleanResponse exists = client.indices().exists(new ExistsRequest.Builder().index("crudsample").build());
@@ -56,15 +56,15 @@ public class CrudAction extends BaseExtensionRestHandler {
         return createJsonResponse(request, RestStatus.OK, "_id", response.id());
     };
 
-    Function<ExtensionRestRequest, ExtensionRestResponse> readHandler = (request) -> {
+    Function<RestRequest, ExtensionRestResponse> readHandler = (request) -> {
         return new ExtensionRestResponse(request, RestStatus.OK, "To be implemented");
     };
 
-    Function<ExtensionRestRequest, ExtensionRestResponse> updateHandler = (request) -> {
+    Function<RestRequest, ExtensionRestResponse> updateHandler = (request) -> {
         return new ExtensionRestResponse(request, RestStatus.OK, "To be implemented");
     };
 
-    Function<ExtensionRestRequest, ExtensionRestResponse> deleteHandler = (request) -> {
+    Function<RestRequest, ExtensionRestResponse> deleteHandler = (request) -> {
         return new ExtensionRestResponse(request, RestStatus.OK, "To be implemented");
     };
 }
