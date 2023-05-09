@@ -3,9 +3,9 @@ package crud;
 import java.io.IOException;
 import java.util.List;
 
-import org.opensearch.sdk.ActionExtension;
+import org.opensearch.sdk.api.ActionExtension;
 import org.opensearch.sdk.BaseExtension;
-import org.opensearch.sdk.ExtensionRestHandler;
+import org.opensearch.sdk.rest.ExtensionRestHandler;
 import org.opensearch.sdk.ExtensionSettings;
 import org.opensearch.sdk.ExtensionsRunner;
 
