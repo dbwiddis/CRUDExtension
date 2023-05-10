@@ -8,13 +8,12 @@
 		<repository>
 			<id>opensearch.snapshots</id>
 			<name>OpenSearch Snapshot Repository</name>
-			<url>https://aws.oss.sonatype.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<url>https://aws.oss.sonatype.org/content/repositories/snapshots/</url>			
+		</repository>
+		<repository>
+			<id>lucene.snapshots</id>
+			<name>Lucene Snapshot Repository</name>
+			<url>https://d1nvenhzbhpy0q.cloudfront.net/snapshots/lucene/</url>
 		</repository>
 	</repositories>
 
@@ -23,17 +22,6 @@
 			<groupId>org.opensearch.sdk</groupId>
 			<artifactId>opensearch-sdk-java</artifactId>
 			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-		<!-- These can be removed with api() -->  
-		<dependency>
-			<groupId>org.opensearch</groupId>
-			<artifactId>opensearch</artifactId>
-			<version>3.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.opensearch.client</groupId>
-			<artifactId>opensearch-java</artifactId>
-			<version>3.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
