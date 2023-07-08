@@ -15,11 +15,13 @@ import org.opensearch.client.opensearch.indices.CreateIndexRequest;
 import org.opensearch.client.opensearch.indices.ExistsRequest;
 import org.opensearch.client.transport.endpoints.BooleanResponse;
 import org.opensearch.extensions.rest.ExtensionRestResponse;
+import org.opensearch.rest.NamedRoute;
 import org.opensearch.rest.RestRequest;
 import org.opensearch.rest.RestRequest.Method;
+import org.opensearch.rest.RestResponse;
 import org.opensearch.rest.RestStatus;
-import org.opensearch.sdk.rest.BaseExtensionRestHandler;
 import org.opensearch.sdk.ExtensionsRunner;
+import org.opensearch.sdk.rest.BaseExtensionRestHandler;
 
 public class CrudAction extends BaseExtensionRestHandler {
 
@@ -30,16 +32,32 @@ public class CrudAction extends BaseExtensionRestHandler {
     }
 
     @Override
-    protected List<RouteHandler> routeHandlers() {
+    public List<NamedRoute> routes() {
         return List.of(
-            new RouteHandler(Method.PUT, "/sample", createHandler),
-            new RouteHandler(Method.GET, "/sample/{id}", readHandler),
-            new RouteHandler(Method.POST, "/sample/{id}", updateHandler),
-            new RouteHandler(Method.DELETE, "/sample/{id}", deleteHandler)
+            new NamedRoute.Builder().method(Method.PUT)
+                .path("/sample")
+                .uniqueName("extension1:sample/create")
+                .handler(createHandler)
+                .build(),
+            new NamedRoute.Builder().method(Method.GET)
+                .path("/sample/{id}")
+                .uniqueName("extension1:sample/get")
+                .handler(readHandler)
+                .build(),
+            new NamedRoute.Builder().method(Method.POST)
+                .path("/sample/{id}")
+                .uniqueName("extension1:sample/post")
+                .handler(updateHandler)
+                .build(),
+            new NamedRoute.Builder().method(Method.DELETE)
+                .path("/sample/{id}")
+                .uniqueName("extension1:sample/delete")
+                .handler(deleteHandler)
+                .build()
         );
     }
 
-    Function<RestRequest, ExtensionRestResponse> createHandler = (request) -> {
+    Function<RestRequest, RestResponse> createHandler = (request) -> {
         IndexResponse response;
         try {
             BooleanResponse exists = client.indices().exists(new ExistsRequest.Builder().index("crudsample").build());
@@ -55,15 +73,15 @@ public class CrudAction extends BaseExtensionRestHandler {
         return createJsonResponse(request, RestStatus.OK, "_id", response.id());
     };
 
-    Function<RestRequest, ExtensionRestResponse> readHandler = (request) -> {
+    Function<RestRequest, RestResponse> readHandler = (request) -> {
         return new ExtensionRestResponse(request, RestStatus.OK, "To be implemented");
     };
 
-    Function<RestRequest, ExtensionRestResponse> updateHandler = (request) -> {
+    Function<RestRequest, RestResponse> updateHandler = (request) -> {
         return new ExtensionRestResponse(request, RestStatus.OK, "To be implemented");
     };
 
-    Function<RestRequest, ExtensionRestResponse> deleteHandler = (request) -> {
+    Function<RestRequest, RestResponse> deleteHandler = (request) -> {
         return new ExtensionRestResponse(request, RestStatus.OK, "To be implemented");
     };
 }
